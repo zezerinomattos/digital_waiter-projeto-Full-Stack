@@ -1,9 +1,29 @@
+import Head from "next/head";
+import Image from "next/image";
 
+// MY IMPORTS
+import styles from '../../styles/home.module.scss';
+import logoImg from '../../public/Logo WaiterFull.png';
+
+import { Input } from "../components/Ui/Input";
 
 export default function Home() {
   return (
     <>
-      <h1>Hello word</h1>
+      <Head>
+        <title>Pizzria - Faça seu login</title>
+      </Head>
+      <div className={styles.containerCenter}>
+        <Image src={logoImg} alt="Logo Digital Waiter" />
+        
+        <div className={styles.login}>
+          <form >
+            <Input placeholder="Digite seu email" type="text"/>
+
+            <Input placeholder="Digite sua Senha" type="password"/>
+          </form>
+        </div>
+      </div>
     </>
   )
 }
