@@ -1,0 +1,49 @@
+
+*{
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    box-sizing: border-box;
+}
+
+:root{
+    --white: #FFF;
+    --black: #000;
+
+    --dark-900: #0D0D0D;
+    --dark-700: #121126
+
+    --gray-100: #A6A6A6;
+    --green-900: #088C7F;
+    --red-900: #FF3F4B;
+    --yellow: #F2CB05;
+}
+
+button{
+    cursor: pointer;
+}
+
+a{
+    color: inherit; // ele vai erdar a cor do elemento pai
+    text-decoration: none;
+}
+
+body{
+    background-color: var(--dark-900); // usando a variavel que chamamos
+}
+
+body, input, textarea, select, button{
+    font: 400 1rem sans-serif; //1rem = 16px
+}
+
+@media (max-width: 720px){
+    html{
+        font-size: 87.5%; // vai gerar 14px
+    }
+}
+
+@media (max-width: 1080px){
+    html{
+        font-size: 93.75%; // vai gerar 15px
+    }
+}
