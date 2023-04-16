@@ -1,0 +1,51 @@
+div.containerCenter{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    // background-color: var(--green-900);
+}
+
+div.containerCenter img{
+    max-width: 300px;
+    max-height: 50px;
+}
+
+div.containerCenter div.login{
+    margin-top: 2rem;
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 1.5rem;
+
+    h1{
+        color: var(--white);
+        padding-bottom: 1rem;
+    }
+
+    form{
+        width: 95%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    form button{
+        height: 40px;
+        font-size: 1.2rem;
+    }
+}
+
+div.containerCenter div.login a.text{
+    margin-top: 1rem;
+    color: var(--white);
+    cursor: pointer;
+}
+
+@media (max-width: 620px){
+    div.containerCenter div.login{
+        width: 90%;
+    }
+}

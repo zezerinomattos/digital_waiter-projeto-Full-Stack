@@ -1,6 +1,8 @@
 import Head from "next/head";
 import Image from "next/image";
 
+import Link from "next/link";
+
 // MY IMPORTS
 import styles from '../../styles/home.module.scss';
 import logoImg from '../../public/Logo WaiterFull.png';
@@ -25,6 +27,11 @@ export default function Home() {
 
             <Button type="submit" loading={false}>Acessar</Button>
           </form>
+
+          <Link href="/signup" className={styles.text}>
+            Não possui uma conta? Cadastre-se
+          </Link>
+
         </div>
       </div>
     </>
