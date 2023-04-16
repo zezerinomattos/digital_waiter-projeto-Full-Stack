@@ -6,6 +6,7 @@ import styles from '../../styles/home.module.scss';
 import logoImg from '../../public/Logo WaiterFull.png';
 
 import { Input } from "../components/Ui/Input";
+import { Button } from '../components/Ui/Button';
 
 export default function Home() {
   return (
@@ -21,6 +22,8 @@ export default function Home() {
             <Input placeholder="Digite seu email" type="text"/>
 
             <Input placeholder="Digite sua Senha" type="password"/>
+
+            <Button type="submit" loading={false}>Acessar</Button>
           </form>
         </div>
       </div>
