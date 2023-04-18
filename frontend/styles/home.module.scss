@@ -44,6 +44,12 @@ div.containerCenter div.login a.text{
     cursor: pointer;
 }
 
+div.containerCenter span{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: var(--white);
+}
+
 @media (max-width: 620px){
     div.containerCenter div.login{
         width: 90%;

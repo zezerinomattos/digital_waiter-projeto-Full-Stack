@@ -20,9 +20,17 @@ export default function Home() {
   const [password, setPassword] = useState('')
 
   const [loading, setLoading] = useState(false);
+  const [mensagem, setMensagem] = useState('');
 
   async function handleLogin(event: FormEvent) {
     event.preventDefault();
+
+    if(email === '' || password === ''){
+      setMensagem('PREENCHA OS DADOS');
+      return
+    }
+
+    setLoading(true);
 
     let data = {
       email,
@@ -30,6 +38,8 @@ export default function Home() {
     }
 
     await signIn(data);
+
+    setLoading(false)
   }
 
   return (
@@ -46,8 +56,10 @@ export default function Home() {
 
             <Input placeholder="Digite sua Senha" type="password" value={password} onChange={(e)=> setPassword(e.target.value)}/>
 
-            <Button type="submit" loading={false}>Acessar</Button>
+            <Button type="submit" loading={loading}>Acessar</Button>
           </form>
+
+          {mensagem && <span>{mensagem}</span>}
 
           <Link href="/signup" className={styles.text}>
             Não possui uma conta? Cadastre-se
