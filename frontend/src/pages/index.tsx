@@ -4,6 +4,8 @@ import Image from "next/image";
 
 import Link from "next/link";
 
+import { canSSRGuest } from '../utils/canSSRGuest';
+
 // MY IMPORTS
 import styles from '../../styles/home.module.scss';
 import logoImg from '../../public/Logo WaiterFull.png';
@@ -70,3 +72,10 @@ export default function Home() {
     </>
   )
 }
+
+export const getServerSideProps = canSSRGuest(async (ctx) => {
+
+  return{
+    props: {}
+  }
+});
