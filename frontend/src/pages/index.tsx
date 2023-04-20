@@ -47,7 +47,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Pizzria - Faça seu login</title>
+        <title>Faça seu login</title>
       </Head>
       <div className={styles.containerCenter}>
         <Image src={logoImg} alt="Logo Digital Waiter" />
