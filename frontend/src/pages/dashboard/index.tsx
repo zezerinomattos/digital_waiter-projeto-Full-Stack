@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { FiRefreshCcw } from 'react-icons/fi';
 
+import Modal from 'react-modal';
+
 // MY IMPORTS
 import { canSSRAuth } from '../../utils/canSSRAuth';
 import Head from 'next/head';
@@ -9,6 +11,9 @@ import styles from './styles.module.scss';
 import { Header } from '../../components/Header';
 
 import { setupAPIClient } from '../../services/api';
+import { api } from '../../services/apiClient';
+
+import { ModalOrder } from '../../components/ModalOrder';
 
 // TIPANDO AS ORDERS
 type OrderProps = {
@@ -24,14 +29,53 @@ interface HomeProps{
     orders: OrderProps[];
 }
 
+export type OrderItemProps = {
+    id: string;
+    amount: number;
+    order_id: string;
+    product_id: string;
+    product: {
+        id: string;
+        name: string;
+        description: string;
+        banner: string;
+    }
+    order: {
+        id: string;
+        table: string | number;
+        status: boolean;
+        name: string | null;
+    }
+}
+
 
 export default function Dashboard({orders}: HomeProps){
 
     const [orderList, setOrderList] = useState(orders || []);
 
-    function handleOpenModalView(id: string){
-        alert(`Id clicado ${id}`);
+    const [modalItem, setModalItem] = useState<OrderItemProps[]>()
+    const [modalVisible, setModalVisible] = useState(false);
+
+    //FECHAR MODAL
+    function handleCloseModal(){
+        setModalVisible(false)
     }
+
+    // ABRIR MODAL
+    async function handleOpenModalView(id: string){
+        
+        await api.get('/order/detail', {
+            params: {
+                order_id: id,
+            }
+        })
+        .then(response => {
+            setModalItem(response.data);
+            setModalVisible(true);
+        })
+    }
+
+    Modal.setAppElement('#__next');
 
     return(
        <>
@@ -63,6 +107,11 @@ export default function Dashboard({orders}: HomeProps){
 
                     </article>
                 </main>
+                
+                {
+                    modalVisible && <ModalOrder />
+                }
+                
             </div>
        </>
     )
