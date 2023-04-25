@@ -1,0 +1,56 @@
+main.container{
+    max-width: 720px;
+    margin: 4rem auto;
+    padding: 0 2rem;
+
+    display: flex;
+    flex-direction: column;
+}
+
+main.container div.containerHeader{
+    display: flex;
+    flex-flow: row wrap;
+
+    h1{
+        color: var(--white);
+    }
+
+    button{
+        background: none;
+        border: 0;
+        margin-left: 1rem;
+    }
+}
+
+main.container article.listOrders{
+    display: flex;
+    flex-direction: column;
+    margin: 1rem 0;
+}
+
+main.container article.listOrders section.orderItem{
+    display: flex;
+    flex-flow: row wrap;
+    background-color: var(--dark-700);
+    margin-bottom: 1rem;
+    align-items: center;
+    border-radius: 0.3rem;
+
+    button{
+        border: 0;
+        background: transparent;
+        font-size: 1.2rem;
+        color: var(--white);
+        height: 60px;
+        display: flex;
+        align-items: center;
+    }
+}
+
+main.container article.listOrders section.orderItem div.tag{
+    width: 9px;
+    height: 60px;
+    background-color: var(--green-900);
+    border-radius: 0.3rem 0 0 0.3rem;
+    margin-right: 1rem;
+}
