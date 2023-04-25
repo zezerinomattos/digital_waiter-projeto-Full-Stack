@@ -10,6 +10,13 @@ main.container{
     h1{
         color: var(--white);
     }
+
+    span{
+        margin-top: 20px;
+        margin-bottom: 20px;
+        color: var(--white);
+        text-align: center;
+    }
 }
 
 main.container form.form{
@@ -35,6 +42,7 @@ main.container form.form{
         margin-bottom: 1rem;
         padding: 0.5rem;
         background-color: var(--dark-700);
+        color: var(--white);
     }
 }
 

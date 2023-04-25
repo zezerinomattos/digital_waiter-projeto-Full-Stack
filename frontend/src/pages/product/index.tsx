@@ -1,6 +1,7 @@
-import { useState, useEffect, useContext, ChangeEvent } from 'react';
+import { useState, useEffect, useContext, ChangeEvent, FormEvent } from 'react';
 import Head from 'next/head';
 import { FiUpload } from 'react-icons/fi';
+import { toast } from 'react-toastify';
 
 // MY IMPORTS
 import styles from './styles.module.scss';
@@ -28,6 +29,12 @@ export default function Product({categoryList}: CategoryProps){
     const [categories, setCategory] = useState(categoryList || []);
     const [categorySelected, setCategorySelected] = useState(0);
 
+    const [name, setName] = useState('');
+    const [price, setPrice] = useState('')
+    const [description, setDescription] = useState('');
+
+    const [mensagem, setMensagem] = useState('');
+
     function handleFile(e: ChangeEvent<HTMLInputElement>){
         if(!e.target.files){
             return
@@ -46,7 +53,44 @@ export default function Product({categoryList}: CategoryProps){
 
     function handleChangeCategory(event: ChangeEvent<HTMLSelectElement>){
         setCategorySelected(parseInt(event.target.value))
-        console.log(categorySelected);
+        // console.log(categorySelected);
+    }
+
+    async function handleRegister(event: FormEvent){
+        event.preventDefault();
+
+        try {
+            const data = new FormData();
+
+            //VERIFICACAO DE CAMPOS
+            if(name === '' || price === '' || description === '' || imageAvatar === null){
+                setMensagem('Preencha todos os campos!');
+                return;
+            }
+
+            data.append('name', name);
+            data.append('price', price);
+            data.append('description', description);
+            data.append('category_id', categories[categorySelected].id);
+            data.append('file', imageAvatar);
+
+            const api = setupAPIClient();
+
+            await api.post('/product', data);
+
+            toast.success('Produto cadastrado com sucesso!');
+            
+        } catch (err) {
+            console.log(err);
+            toast.error('Ops erro ao cadastrar');
+        }
+
+        setName('');
+        setPrice('')
+        setDescription('');
+        setAvatarUrl('');
+        setImageAvatar(null);
+        setCategorySelected(0);        
     }
 
     return(
@@ -59,7 +103,7 @@ export default function Product({categoryList}: CategoryProps){
 
                 <main className={styles.container}>
                     <h1>Novo Produto</h1>
-                    <form className={styles.form}>
+                    <form className={styles.form} onSubmit={handleRegister}>
 
                         {/*CARREGANDO A IMG DO PRODUTO */}
                         <label className={styles.labelAvatar}>
@@ -89,19 +133,25 @@ export default function Product({categoryList}: CategoryProps){
                         </select>
 
                         <input type="text" placeholder='Nome do produto'
-                            className={styles.input}
+                            className={styles.input} value={name}
+                            onChange={(e) => setName(e.target.value)}
                         />
 
                         <input type="text" placeholder='Valor do produto' 
-                            className={styles.input}
+                            className={styles.input} value={price}
+                            onChange={(e) => setPrice(e.target.value)}
                         />
 
                         <textarea placeholder='Descreva seu produto...'
-                            className={styles.input}
+                            className={styles.input} value={description}
+                            onChange={(e) => setDescription(e.target.value)}
                         />
 
                         <button className={styles.buttonAdd} type='submit'>Cadastrar</button>
                     </form>
+
+                    {mensagem && <span>{mensagem}</span>}
+
                 </main>
             </div>
         </>
@@ -113,9 +163,6 @@ export const getServerSideProps = canSSRAuth(async (ctx) => {
     const apiClient = setupAPIClient(ctx)
 
     const response = await apiClient.get('/category');
-    console.log(response.data);
-
-    // const [response, setResponse] = useState();
 
     return{
         props: {
