@@ -47,13 +47,17 @@ export function ModalOrder({ isOpen, onRequestClose, order, handleFinishModal }:
                         <span>{item.amount} - <strong>{item.product.name}</strong></span>
                         <span className={styles.description}>{item.product.description}</span>
 
-                        <span className={styles.hour}>
+                        {/* <span className={styles.hour}>
                             Horario: {new Date(item.created_at).toLocaleTimeString("pt-BR", {hour: "2-digit", minute: "2-digit"})}
-                        </span>
+                        </span> */}
                     </section>
                 ))}
 
-                <button className={styles.buttonOrder} onClick={() => handleFinishModal(order[0].order_id) }>
+                <span className={styles.hour}>
+                    Horario: {new Date(order[0].created_at).toLocaleTimeString("pt-BR", {hour: "2-digit", minute: "2-digit"})}
+                </span>
+
+                <button className={styles.buttonOrder} onClick={() => handleFinishModal(order[0].order_id)}>
                     Concluir pedido
                 </button>
 
