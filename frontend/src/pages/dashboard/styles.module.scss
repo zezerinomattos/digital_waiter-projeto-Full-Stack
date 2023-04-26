@@ -26,6 +26,11 @@ main.container article.listOrders{
     display: flex;
     flex-direction: column;
     margin: 1rem 0;
+
+    span.emptyList{
+        font-size: 1.2rem;
+        color: var(--gray-100);
+    }
 }
 
 main.container article.listOrders section.orderItem{
