@@ -35,6 +35,7 @@ main.container article.listOrders section.orderItem{
     margin-bottom: 1rem;
     align-items: center;
     border-radius: 0.3rem;
+    position: relative;
 
     button{
         border: 0;
@@ -44,7 +45,16 @@ main.container article.listOrders section.orderItem{
         height: 60px;
         display: flex;
         align-items: center;
+
     }
+
+}
+
+main.container article.listOrders section.orderItem span.dateHour{
+    position: absolute;
+    right: 20px;
+    color: var(--white);
+    font-weight: bold;
 }
 
 main.container article.listOrders section.orderItem div.tag{

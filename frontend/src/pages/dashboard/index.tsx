@@ -46,6 +46,8 @@ export type OrderItemProps = {
         status: boolean;
         name: string | null;
     }
+
+    created_at: Date;
 }
 
 
@@ -101,6 +103,11 @@ export default function Dashboard({orders}: HomeProps){
                                         <div className={styles.tag}></div>
                                         <span>Mesa {item.table}</span>
                                     </button>
+
+                                    <span className={styles.dateHour}>
+                                        {`${new Date(item.created_at).toLocaleTimeString("pt-BR", {hour: "2-digit", minute: "2-digit"})} 
+                                        - ${new Date(item.created_at).toLocaleDateString("pt-BR")}`}
+                                    </span>
                                 </section>
                             ))
                         }
@@ -109,7 +116,12 @@ export default function Dashboard({orders}: HomeProps){
                 </main>
                 
                 {
-                    modalVisible && <ModalOrder />
+                    modalVisible && modalItem && modalItem.length > 0 && (
+                        <ModalOrder isOpen={modalVisible} 
+                            onRequestClose={handleCloseModal} 
+                            order={modalItem} 
+                        />
+                    )
                 }
                 
             </div>
