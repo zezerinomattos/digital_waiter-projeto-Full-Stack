@@ -1,4 +1,5 @@
 import React, {useState, createContext, ReactNode} from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // MY IMPORTS
 import { api } from '../service/api';
@@ -62,9 +63,18 @@ export function AuthProvider({children}: AuthProviderProps){
             email,
             password
         })
-        .then(response => {
+        .then(async(response) => {
             //Desconstruir a resposta e passar para o user
             const { id, name, email, token } = response.data;
+
+            const data = {
+                ...response.data
+            };
+
+            await AsyncStorage.setItem('@digitalwaiter', JSON.stringify(data));
+
+            // PASSANDO O TOKEN PARA AS ROTAS USAREM O Authorization NAS CHAMADAS DA API
+            api.defaults.headers.common['Authorization'] = `Bearer ${token}`
 
             setUser({
                 id,
