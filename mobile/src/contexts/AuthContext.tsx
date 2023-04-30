@@ -1,5 +1,12 @@
 import React, {useState, createContext, ReactNode} from 'react';
 
+type AuthContextData = {
+    user: UserProps;
+    isAuthenticated: boolean;
+    signIn: (credentials: SignInProps) => Promise<void>;
+}
+
+
 type UserProps = {
     id: string;
     name: string;
@@ -7,13 +14,13 @@ type UserProps = {
     token: string;
 }
 
-type AuthContextData = {
-    user: UserProps;
-    isAuthenticated: boolean;
-}
-
 type AuthProviderProps = {
     children: ReactNode;
+}
+
+type SignInProps = {
+    email: string;
+    password: string;
 }
 
 export const AuthContext = createContext({} as AuthContextData); 
@@ -29,8 +36,13 @@ export function AuthProvider({children}: AuthProviderProps){
     //ESTOU VERIFICANDO SE ELE FEZ O LOGIN VAI VIRAR TRUE
     const isAuthenticated = !!user.name;
 
+    async function signIn({email, password}: SignInProps){
+        console.log(email);
+        console.log(password);
+    }
+
     return(
-        <AuthContext.Provider value={{user, isAuthenticated}}>
+        <AuthContext.Provider value={{user, isAuthenticated, signIn }}>
             {children}
         </AuthContext.Provider>
     )

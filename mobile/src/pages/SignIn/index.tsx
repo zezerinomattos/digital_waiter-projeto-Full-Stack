@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
 import { 
     View, 
     Text,
@@ -10,20 +10,24 @@ import {
 // MY IMPORTS
 import styles from "./styles";
 
+import{ AuthContext } from '../../contexts/AuthContext';
+
 export default function SignIn(){
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     const [mensagem, setMensagem] = useState('');
 
-    function hendleLogin(){
+    const { signIn }  = useContext(AuthContext);
+
+    async function hendleLogin(){
 
         if(email === '' || password === ''){
             setMensagem('Ops, preencha os campos!');
             return;
         }
-
-        alert(`Email ${email} senha ${password}`);
+        
+        await signIn({email, password});
     }
 
     return(
