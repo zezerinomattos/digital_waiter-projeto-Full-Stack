@@ -4,7 +4,8 @@ import {
     Text,
     Image,
     TextInput,
-    TouchableOpacity
+    TouchableOpacity,
+    ActivityIndicator
 } from 'react-native';
 
 // MY IMPORTS
@@ -18,7 +19,7 @@ export default function SignIn(){
 
     const [mensagem, setMensagem] = useState('');
 
-    const { signIn }  = useContext(AuthContext);
+    const { signIn, loading }  = useContext(AuthContext);
 
     async function hendleLogin(){
 
@@ -49,7 +50,12 @@ export default function SignIn(){
                   {mensagem && <Text style={styles.alertaText}>{mensagem}</Text>
 }
                   <TouchableOpacity style={styles.button} onPress={hendleLogin}>
-                    <Text style={styles.buttonText}>Acessar</Text>
+                    {
+                      loading ? 
+                        <ActivityIndicator size={25} color={'#F2CB05'}/>
+                      :
+                        <Text style={styles.buttonText}>Acessar</Text>
+                    }                    
                   </TouchableOpacity>
             </View>
        </View>
