@@ -1,4 +1,4 @@
-import React, {useState, createContext, ReactNode} from 'react';
+import React, {useState, createContext, ReactNode, useEffect} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // MY IMPORTS
@@ -8,6 +8,9 @@ type AuthContextData = {
     user: UserProps;
     isAuthenticated: boolean;
     signIn: (credentials: SignInProps) => Promise<void>;
+    loadingAuth: boolean;
+    loading: boolean;
+    signOut: () => Promise<void>;
 }
 
 
@@ -38,9 +41,36 @@ export function AuthProvider({children}: AuthProviderProps){
     });
 
     const [loading, setLoading] = useState(false);
+    const [loadingAuth, setLoadingAuth] = useState(true);
 
     //ESTOU VERIFICANDO SE ELE FEZ O LOGIN VAI VIRAR TRUE
     const isAuthenticated = !!user.name;
+
+    useEffect(() => {
+        async function getUser(){
+
+            //PEGAR OS DADOS SALVOS DO NOSSO USER
+            const userInfo = await AsyncStorage.getItem('@digitalwaiter');
+            let hasUser: UserProps = JSON.parse(userInfo || '{}');
+
+            //VERIFICANDO SE RECEBEMOS AS INFORMAÇÕES DELE
+            if(Object.keys(hasUser).length > 0){
+                // PASSANDO O TOKEN PARA AS ROTAS USAREM O Authorization NAS CHAMADAS DA API
+                api.defaults.headers.common['Authorization'] = `Bearer ${hasUser.token}`
+
+                setUser({
+                    id: hasUser.id,
+                    name: hasUser.name,
+                    email: hasUser.email,
+                    token: hasUser.token
+                })
+            }
+            setLoadingAuth(false);
+        }
+
+        getUser();
+
+    }, []);
 
     async function signIn({email, password}: SignInProps){
         setLoading(true);
@@ -90,8 +120,20 @@ export function AuthProvider({children}: AuthProviderProps){
         });
     }
 
+    async function signOut(){
+        await AsyncStorage.clear()
+            .then(() => {
+                setUser({
+                    id: '',
+                    name: '',
+                    email: '',
+                    token: ''
+                });
+            })
+    }
+
     return(
-        <AuthContext.Provider value={{user, isAuthenticated, signIn }}>
+        <AuthContext.Provider value={{user, isAuthenticated, signIn, loading, loadingAuth, signOut }}>
             {children}
         </AuthContext.Provider>
     )
