@@ -11,6 +11,8 @@ import { StackParmList } from '../../routes/app.routes';
 import styles from './style';
 import { AuthContext } from '../../contexts/AuthContext';
 
+import { api } from '../../service/api';
+
 export default function DashBoard(){
     const navigation = useNavigation<NativeStackNavigationProp<StackParmList>>();
 
@@ -24,9 +26,16 @@ export default function DashBoard(){
             setMensagem('Você precisa informar o numero da mesa!')
             return
         }
+        //Requisicao Banco
+        await api.post('/order', {
+            table: Number(number)
+        })
+        .then(response => {
+            //FAZER A REQUISICAO PARA ABRIR A MESA E NAVEGAR PARA PROXIMA TELA
+            navigation.navigate('Order', { number: number, order_id: response.data.id });
 
-        //FAZER A REQUISICAO PARA ABRIR A MESA E NAVEGAR PARA PROXIMA TELA
-        navigation.navigate('Order', { number: number, order_id: 'c5e7ab62-b461-45d1-b9c8-d317817f7bea' });
+            setNumber('');
+        })
     }
 
     return(
