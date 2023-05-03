@@ -95,9 +95,14 @@ export default function Order(){
         });
     }
 
-    // FUNÇÃO PARA PASSAR ITEM SELECIONADO
+    // FUNÇÃO PARA PASSAR CATEGORIA SELECIONADO
     function handleChangeCategory(item: CategoryProps){
         setCategorySelected(item);
+    }
+
+    // FUNÇÃO PARA PASSAR PRODUTO SELECIONADO
+    function handleChangeProduct(item: ProductProps){
+        setProductSelected(item);
     }
 
     return(
@@ -119,7 +124,7 @@ export default function Order(){
 
             {
                 product.length !== 0 && (
-                    <TouchableOpacity style={styles.input}>
+                    <TouchableOpacity style={styles.input} onPress={() => setModalProductVisible(true)}>
                         <Text style={{ color: '#FFF' }}>{productSelected?.name}</Text>
                     </TouchableOpacity>
                 )
@@ -148,6 +153,14 @@ export default function Order(){
                     handleCloseModal={() => setModalCategoryVisible(false)}
                     options= {category}
                     selectedItem={handleChangeCategory}
+                />
+            </Modal>
+
+            <Modal transparent={true} visible={modalProductVisible} animationType='fade'>
+                <ModalPicker 
+                    handleCloseModal={() => setModalProductVisible(false)}
+                    options= {product}
+                    selectedItem={handleChangeProduct}
                 />
             </Modal>
             
