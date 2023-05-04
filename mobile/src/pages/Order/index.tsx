@@ -160,7 +160,10 @@ export default function Order(){
 
     // FUNÇÃO PARA O BOTÃO AVANÇAR
     function handleFinishOrder(){
-        navigation.navigate('FinishOrder');
+        navigation.navigate('FinishOrder', {
+            number: route.params?.number,
+            order_id: route.params?.order_id
+        });
     }
 
     return(
