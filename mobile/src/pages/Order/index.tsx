@@ -138,6 +138,22 @@ export default function Order(){
         });
     }
 
+    // FUNÇÃO PARA DELETAR PRODUTO DA MESA
+    async function handleDeleteItem(item_id: string){
+        await api.delete('/order/remove', {
+            params:{
+                item_id: item_id
+            }
+        })
+        
+        // REMOVENDO DA TELA ESSE ITEM QUE JÁ NÃO EXISTE MAIS NO BANCO
+        let removeItem = itens.filter(item => {
+            return (item.id !== item_id);
+        })
+
+        setItens(removeItem);
+    }
+
     return(
         <View style={styles.container}>
             <View style={styles.header}>
@@ -194,7 +210,7 @@ export default function Order(){
                 style={{ flex: 1, marginTop: 24 }}
                 data={itens}
                 keyExtractor={(item) => item.id}
-                renderItem={({ item }) => <ListItem data={item}/>}
+                renderItem={({ item }) => <ListItem data={item} deleteItem={handleDeleteItem}/>}
             />
 
             <Modal transparent={true} visible={modalCategoryVisible} animationType='fade'>
