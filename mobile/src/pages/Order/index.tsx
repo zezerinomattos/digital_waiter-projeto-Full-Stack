@@ -116,17 +116,39 @@ export default function Order(){
     }
 
     // FUNÇÃO PARA ADICIONAR ITEM SELECIONADO
-    function handleAdd(){
-        alert('clicou');
+    async function handleAdd(){
+        await api.post('/order/add', {
+            order_id: route.params?.order_id,
+            product_id: productSelected?.id,
+            amount: Number(amount)
+        })
+        .then((response) => {
+            //Estamos passando a tipagem do itemProps
+            let data = {
+                id: response.data.id,
+                product_id: productSelected?.id as string,
+                name: productSelected?.name as string,
+                amount: amount
+            }
+            //Colocando o item dentro da mesa mantendo o que já tinha
+            setItens(oldArray => [...oldArray, data]);
+        })
+        .catch(error => {
+            console.log(error);
+        });
     }
 
     return(
         <View style={styles.container}>
             <View style={styles.header}>
                 <Text style={styles.title}>Mesa {route.params.number}</Text>
-                <TouchableOpacity onPress={handleCloseOrder}>
-                    <Feather name='trash-2' size={25} color={'#FF3F4B'}/>
-                </TouchableOpacity>
+                {
+                    itens.length === 0 && (
+                        <TouchableOpacity onPress={handleCloseOrder}>
+                            <Feather name='trash-2' size={25} color={'#FF3F4B'}/>
+                        </TouchableOpacity>
+                    )
+                }
             </View>
 
            {
