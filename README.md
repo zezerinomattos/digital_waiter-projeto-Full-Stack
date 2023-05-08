@@ -7,13 +7,13 @@
 
  O projeto foi desenvolvido utilizando tecnologias modernas e robustas, com o objetivo de garantir a qualidade e desempenho:
 
-Node.js 
-TypeScript 
-PostgreSQL 
-Next.js 
-React.js 
-Sass 
-React Native 
+Node.js <br/>
+TypeScript <br/>
+PostgreSQL <br/>
+Next.js <br/>
+React.js <br/>
+Sass <br/>
+React Native <br/>
 
 
 ### Arquitetura
@@ -24,16 +24,16 @@ A arquitetura do projeto foi pensada para permitir a escalabilidade e manutenç�
 
 O Digital Waiter oferece diversas funcionalidades para uma melhor gestão dos pedidos em restaurantes, como:
 
-Registro de pedidos pelo garçom via aplicativo móvel 
-Integração automática com o sistema web para a cozinha e caixa 
-Controle dos pedidos em aberto e finalizados 
-Custo mais baixo para o estabelecimento 
-Agilidade e precisão na gestão de pedidos <
-Cadastro de usuário 
-Cadastro de Produtos 
-Loging 
-Segurança criptografada 
-Entre outras 
+Registro de pedidos pelo garçom via aplicativo móvel <br/>
+Integração automática com o sistema web para a cozinha e caixa <br/>
+Controle dos pedidos em aberto e finalizados <br/>
+Custo mais baixo para o estabelecimento <br/>
+Agilidade e precisão na gestão de pedidos <br/>
+Cadastro de usuário <br/>
+Cadastro de Produtos <br/>
+Loging <br/>
+Segurança criptografada <br/>
+Entre outras <br/>
 
 ### Conclusão
 
